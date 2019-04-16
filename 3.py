@@ -6,15 +6,18 @@ class Solution:
             return 0
         maxlen = 1
         begin = 0
-        end = 1
+        end = 0
+        dict = {}
         while end < len(s):
-            for i in range(begin, end):
-                if s[i] == s[end]:
-                    if (end-begin) > maxlen:
-                        maxlen = (end-begin)
-                    #print(s[begin:end],maxlen)
-                    begin = begin + (i-begin) + 1
-                    break
+            if s[end] in dict:
+                if (end-begin) > maxlen:
+                    maxlen = (end-begin)
+                #remove from begin char to the duplicated char
+                for i in range(begin,dict[s[end]]):
+                    del dict[s[i]]
+                begin = dict[s[end]]+1
+                del dict[s[end]]
+            dict[s[end]] = end
             end = end + 1
             if (end-begin) > maxlen:
                 maxlen = (end-begin)
@@ -28,15 +31,15 @@ class Solution:
 if __name__ == "__main__":
     sol = Solution()
     s = "abcdabcdefg"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     s = "abcabcbb"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     s = "bbbbb"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     s = "pwwkew"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     s = "pwwkewlkopfdsafubnfldkMaQ"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     s = " aAbB c"
-    sol.lengthOfLongestSubstring(s)
+    print(sol.lengthOfLongestSubstring(s))
     
